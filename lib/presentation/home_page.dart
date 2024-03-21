@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finsage/presentation/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:finsage/theme/custom_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                             ) // Custom text color
                           ),
                           Text(
-                              "Monthly Income: ₹" + userData?.entries.elementAt(0).value ?? "",
+                              "Monthly Income: \$" + userData?.entries.elementAt(0).value ?? "",
                               style: GoogleFonts.poppins(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                               ) // Custom text color
                           ),
                           Text(
-                              "Monthly Investment Fund: ₹" + userData?.entries.elementAt(1).value ?? "",
+                              "Monthly Investment Fund: \$" + userData?.entries.elementAt(1).value ?? "",
                               style: GoogleFonts.poppins(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
