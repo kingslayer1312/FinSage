@@ -252,7 +252,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: 10,
                       ),
                       Text(
-                        "Please provide your approximate monthly income in INR:",
+                        "Please provide your approximate monthly income in USD:",
                         style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w600
