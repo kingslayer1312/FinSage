@@ -29,7 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future signUp() async {
     if ((_passwordController.text.trim() == _confirmPasswordController.text.trim()) && _passwordController.text.trim().isNotEmpty) {
-      final newUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim()
       );
@@ -45,7 +45,51 @@ class _SignUpPageState extends State<SignUpPage> {
         context,
         MaterialPageRoute(builder: (context) => Navigation())
       );
+    } else if (_passwordController.text.trim() != _confirmPasswordController.text.trim()) {
+      _showPasswordMismatchAlert();
+    } else if ((_passwordController.text.trim() == _confirmPasswordController.text.trim()) && _passwordController.text.trim().length < 8) {
+      _showShortPasswordAlert();
     }
+  }
+
+  void _showPasswordMismatchAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Passwords do not match'),
+          content: Text('Please make sure the passwords match.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showShortPasswordAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Passwords too short'),
+          content: Text('Please make sure the password is at least 8 characters long.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -276,7 +320,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: TextField(
                             controller: _incomeController,
                             decoration: InputDecoration(
-                                icon: Icon(Icons.currency_rupee),
+                                icon: Icon(Icons.monetization_on_outlined),
                                 border: InputBorder.none,
                             ),
                           ),
@@ -314,7 +358,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: TextField(
                             controller: _monthlyInvestmentController,
                             decoration: InputDecoration(
-                                icon: Icon(Icons.currency_rupee),
+                                icon: Icon(Icons.monetization_on_outlined),
                                 border: InputBorder.none,
                             ),
                           ),

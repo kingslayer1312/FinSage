@@ -180,7 +180,14 @@ class _ChatBotPageState extends State<ChatBotPage> {
                       ),
                       IconButton(
                         onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Generating response...'),
+                              duration: Duration(seconds: 4),
+                            ),
+                          );
                           talkWithGemini();
+                          FocusScope.of(context).unfocus();
                         },
                         icon: Icon(Icons.send_sharp),
                         color: Colors.white,
