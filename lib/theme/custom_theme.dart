@@ -14,4 +14,7 @@ class CustomTheme {
   static const Color maastrichtBlue = Color(0xFF002B36);
   static const Color airForceBlue = Color(0xFF658E9C);
   static const Color moonstone = Color(0xFF4FB0C6);
+  static const Color asparagus = Color(0xFF7FB069);
+  static const Color flame = Color(0xFFD36135);
+  static const Color lightSeaGreen = Color(0xFF00BFB3);
 }

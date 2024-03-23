@@ -74,10 +74,10 @@ class _ChatBotPageState extends State<ChatBotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: CustomTheme.lightGray,
+      backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: CustomTheme.lightGray,
+        backgroundColor: CustomTheme.richBlack,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarBrightness: Brightness.dark,
@@ -93,11 +93,12 @@ class _ChatBotPageState extends State<ChatBotPage> {
             if (_botResponse.isNotEmpty) // Display card only if there's a response
               Expanded(
                 child: Card(
+                  surfaceTintColor: CustomTheme.richBlack,
                   color: CustomTheme.maastrichtBlue,
-                  elevation: 10,
+                  elevation: 20,
                   margin: EdgeInsets.all(10),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +111,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                             style: GoogleFonts.montserrat(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: CustomTheme.airForceBlue,
+                              color: CustomTheme.neutralWhite,
                             ),
                           ),
                           SizedBox(height: 5),
@@ -118,16 +119,21 @@ class _ChatBotPageState extends State<ChatBotPage> {
                             "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} - ${DateTime.now().hour}:$minuteString",
                             style: GoogleFonts.montserrat(
                               fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: CustomTheme.lightGray,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white70,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
+                          Divider(
+                            color: Colors.white70,
+                          ),
+                          SizedBox(height: 10),
                           Text(
                             _botResponse,
                             style: GoogleFonts.poppins(
                               fontSize: 16,
-                              color: CustomTheme.lightGray,
+                              color: CustomTheme.neutralWhite,
+                              fontWeight: FontWeight.w400
                             ),
                           ),
                         ],
@@ -146,8 +152,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
                     "FinSage AI",
                     style: GoogleFonts.montserrat(
                       fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white70,
                     )
                 ),
               ],
@@ -160,14 +166,15 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Row(
                     children: [
                       Expanded(
                         flex: 15,
                         child: TextFormField(
                           controller: _userInput,
-                          style: TextStyle(color: Colors.white),
+                          textCapitalization: TextCapitalization.characters,
+                          style: TextStyle(color: CustomTheme.neutralWhite, fontSize: 18),
                           onChanged: (value) {
                             _saveUserInput(value); // Save user input on change
                           },
@@ -190,7 +197,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                           FocusScope.of(context).unfocus();
                         },
                         icon: Icon(Icons.send_sharp),
-                        color: Colors.white,
+                        color: CustomTheme.moonstone,
                       )
                     ],
                   ),
@@ -206,8 +213,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 Text(
                   "Powered by Gemini Pro",
                   style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    color: Colors.white
                   ),
                 )
               ],

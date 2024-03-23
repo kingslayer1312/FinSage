@@ -83,27 +83,42 @@ class _WatchlistPageState extends State<WatchlistPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add Stock Symbol'),
+          backgroundColor: CustomTheme.lightGray,
+          title: Text(
+              'Add Stock Symbol',
+              style: GoogleFonts.montserrat(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                  color: CustomTheme.richBlack
+              )
+          ),
           content: TextField(
             controller: _searchController,
             textCapitalization: TextCapitalization.characters,
             decoration: InputDecoration(hintText: 'Enter stock symbol'),
           ),
           actions: <Widget>[
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomTheme.moonstone, // Custom button background color
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: Text('Cancel', style: TextStyle(color: Colors.black)), // Custom text color
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomTheme.moonstone, // Custom button background color
+              ),
               onPressed: () {
                 String symbol = _searchController.text.toUpperCase();
                 _addToWatchlist(symbol);
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: Text('OK', style: TextStyle(color: Colors.black)), // Custom text color
             ),
+
           ],
         );
       },
@@ -114,8 +129,8 @@ class _WatchlistPageState extends State<WatchlistPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: CustomTheme.maastrichtBlue,
-        foregroundColor: CustomTheme.neutralWhite,
+        backgroundColor: CustomTheme.moonstone,
+        foregroundColor: CustomTheme.richBlack,
         onPressed: _showAddStockDialog,
         tooltip: 'Add Stock',
         child: Icon(Icons.add),
@@ -185,20 +200,29 @@ class _WatchlistPageState extends State<WatchlistPage> {
                       child: ListTile(
                         title: Text(
                             stock['stockName'] ?? '',
-                            style: GoogleFonts.poppins(
-                                fontSize: 24,
+                            style: GoogleFonts.montserrat(
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
-                                color: CustomTheme.emeraldGreen
+                                color: CustomTheme.lightGray
                             )
                         ),
-                        subtitle: Text(
-                            '\$${stock['c'] ?? ''}',
-                            style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone
+                        subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                '\$${stock['c'] ?? ''}',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w400,
+                                    color: CustomTheme.lightSeaGreen
+                                )
+                            ),
+                            SizedBox(
+                              height: 10,
                             )
-                        ),
+                          ],
+                        )
                       ),
                     ),
                   );

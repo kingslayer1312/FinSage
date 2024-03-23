@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> {
     final StringBuffer buffer = StringBuffer();
     int wordCount = 0;
     for (final sentence in sentences) {
-      if (wordCount + sentence.split(' ').length > 100) {
+      if (wordCount + sentence.split(' ').length > 70) {
         break;
       }
       buffer.write(sentence);
@@ -179,21 +180,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: CustomTheme.lightGray,
-          foregroundColor: CustomTheme.maastrichtBlue,
+          backgroundColor: CustomTheme.moonstone,
+          foregroundColor: CustomTheme.richBlack,
           child: Icon(Icons.manage_accounts),
           onPressed: () {
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: CustomTheme.maastrichtBlue, // Custom background color
+                  backgroundColor: CustomTheme.lightGray, // Custom background color
                   title: Text(
                       "Account Details",
                       style: GoogleFonts.montserrat(
                           fontSize: 26,
                           fontWeight: FontWeight.w600,
-                          color: CustomTheme.lightGray
+                          color: CustomTheme.richBlack
                       )
                   ), // Custom text color
                   content: Expanded(
@@ -206,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
-                                color: CustomTheme.lightGray
+                                color: CustomTheme.richBlack
                             ) // Custom text color
                         ),
                         Text(
@@ -214,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
-                                color: CustomTheme.lightGray
+                                color: CustomTheme.richBlack
                             ) // Custom text color
                         ),
                         Text(
@@ -222,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
-                                color: CustomTheme.lightGray
+                                color: CustomTheme.richBlack
                             ) // Custom text color
                         ),
                         SizedBox(
@@ -233,7 +234,7 @@ class _HomePageState extends State<HomePage> {
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: CustomTheme.lightGray
+                                color: CustomTheme.richBlack
                             ) // Custom text color
                         ),
                       ],
@@ -274,8 +275,21 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "STOCK RECOMMENDATIONS",
+                style: GoogleFonts.montserrat(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Divider(
+                thickness: 2,
+              ),
               ListView.builder(
+                dragStartBehavior: DragStartBehavior.start,
                 shrinkWrap: true,
                 itemCount: _stocksData.length,
                 itemBuilder: (context, index) {
@@ -297,38 +311,86 @@ class _HomePageState extends State<HomePage> {
                           style: GoogleFonts.poppins(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: CustomTheme.gold,
+                            color: CustomTheme.lightGray,
                           ),
                         ),
                         subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Buy: ${stock['buy'] ?? 0}',
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone,
+                            Divider(),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'BUY',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: CustomTheme.emeraldGreen,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${stock['buy'] ?? 0}",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: CustomTheme.emeraldGreen,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'SELL',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: CustomTheme.crimsonRed,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${stock['sell'] ?? 0}",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: CustomTheme.crimsonRed,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'HOLD',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: CustomTheme.gold,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${stock['hold'] ?? 0}",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: CustomTheme.gold,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ),
-                            Text(
-                              'Sell: ${stock['sell'] ?? 0}',
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone,
-                              ),
-                            ),
-                            Text(
-                              'Hold: ${stock['hold'] ?? 0}',
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone,
-                              ),
-                            ),
+                            )
                           ],
-                        ),
+                        )
                       ),
                     ),
                   );
@@ -362,31 +424,54 @@ class CompanyInfoScreen extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 0),
+          padding: const EdgeInsets.fromLTRB(10, 1.2 * kToolbarHeight, 10, 0),
           child: SingleChildScrollView(
               padding: EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "About",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w600,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: CustomTheme.maastrichtBlue,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Information".toUpperCase(),
+                          style: GoogleFonts.montserrat(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.info,
+                          size: 30,
+                          color: Colors.white,
+                        )
+                      ],
                     ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    companyInfo,
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    child: Text(
+                      companyInfo,
+                      style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
+                  )
                 ],
-              )),
-        ));
+              )
+          ),
+        )
+    );
   }
 }

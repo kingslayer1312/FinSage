@@ -30,6 +30,40 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
     _loadInvestments();
   }
 
+  double calculateTotalInvestment(Map<String, dynamic> investment) {
+    // Get quantity and cost per unit from investment data
+    double quantity = investment['quantity'] ?? 0;
+    double costPerUnit = investment['costPerUnit'] ?? 0;
+
+    // Calculate total investment
+    return quantity * costPerUnit;
+  }
+
+  double calculateTotalEvaluation(Map<String, dynamic> investment) {
+    // Get quantity and price from investment data
+    double quantity = investment['quantity'] ?? 0;
+    double price = investment['c'] ?? 0;
+
+    // Calculate total evaluation
+    return quantity * price;
+  }
+
+  Color getInvestmentColor(Map<String, dynamic> investment) {
+    if (calculateTotalEvaluation(investment) > calculateTotalInvestment(investment)) {
+      return CustomTheme.emeraldGreen;
+    } else {
+      return CustomTheme.crimsonRed;
+    }
+  }
+
+  Color getContentColor(Map<String, dynamic> investment) {
+    if (calculateTotalEvaluation(investment) > calculateTotalInvestment(investment)) {
+      return CustomTheme.asparagus;
+    } else {
+      return CustomTheme.flame;
+    }
+  }
+
   Future<void> _loadInvestments() async {
     _prefs = await SharedPreferences.getInstance();
     String investmentsJson = _prefs.getString('investments') ?? '[]';
@@ -93,7 +127,15 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add Investment'),
+          backgroundColor: CustomTheme.lightGray,
+          title: Text(
+              'Add Investment',
+              style: GoogleFonts.montserrat(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                  color: CustomTheme.richBlack
+              )
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,23 +158,27 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
             ],
           ),
           actions: <Widget>[
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomTheme.moonstone, // Custom button background color
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: Text('Cancel', style: TextStyle(color: Colors.black)), // Custom text color
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomTheme.moonstone, // Custom button background color
+              ),
               onPressed: () {
                 String symbol = _symbolController.text.toUpperCase();
-                double quantity = double.tryParse(_quantityController.text) ??
-                    0;
-                double costPerUnit = double.tryParse(
-                    _costPerUnitController.text) ?? 0;
+                double quantity = double.tryParse(_quantityController.text) ?? 0;
+                double costPerUnit = double.tryParse(_costPerUnitController.text) ?? 0;
                 _addInvestment(symbol, quantity, costPerUnit);
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: Text('OK', style: TextStyle(color: Colors.black)), // Custom text color
             ),
           ],
         );
@@ -144,8 +190,8 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: CustomTheme.maastrichtBlue,
-        foregroundColor: CustomTheme.neutralWhite,
+        backgroundColor: CustomTheme.moonstone,
+        foregroundColor: CustomTheme.richBlack,
         onPressed: _showAddInvestmentDialog,
         tooltip: 'Add Investment',
         child: Icon(Icons.add),
@@ -187,9 +233,9 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                     child: ListTile(
                       title: Text(
                         investment['symbol'] ?? '',
-                        style: GoogleFonts.poppins(fontSize: 24,
+                        style: GoogleFonts.montserrat(fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: CustomTheme.gold),
+                            color: CustomTheme.lightGray),
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,22 +244,78 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                             'Quantity: ${investment['quantity'] ?? ''}',
                             style: GoogleFonts.poppins(fontSize: 20,
                                 fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone),
+                                color: getContentColor(investment)
+                            ),
                           ),
                           Text(
                             'Cost Per Unit: \$${investment['costPerUnit'] ??
                                 ''}',
                             style: GoogleFonts.poppins(fontSize: 20,
                                 fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone),
+                                color: getContentColor(investment)),
                           ),
                           Text(
                             'Price: \$${investment['c'] ?? ''}',
                             style: GoogleFonts.poppins(fontSize: 20,
                                 fontWeight: FontWeight.w400,
-                                color: CustomTheme.moonstone),
+                                color: getContentColor(investment)),
                           ),
-                          // You can include more details here as needed
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Divider(
+
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                      "INVESTMENT",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                      color: getInvestmentColor(investment),
+                                    ),
+                                  ),
+                                  Text(
+                                      "\$${calculateTotalInvestment(investment).toString()}",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: getInvestmentColor(investment),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Spacer(
+
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                      "EVALUATION",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w400,
+                                      color: getInvestmentColor(investment),
+                                    ),
+                                  ),
+                                  Text(
+                                      "\$${calculateTotalEvaluation(investment).toString()}",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: getInvestmentColor(investment),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),

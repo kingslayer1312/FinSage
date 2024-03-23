@@ -26,7 +26,7 @@ class _NavigationState extends State<Navigation> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: CustomTheme.gold,
+        indicatorColor: CustomTheme.moonstone,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
