@@ -17,23 +17,39 @@ class ChatBotPage extends StatefulWidget {
 class _ChatBotPageState extends State<ChatBotPage> {
   TextEditingController _userInput = TextEditingController();
   String _botResponse = '';
+  String _botTitle = '';
 
   @override
   void initState() {
     super.initState();
-    _loadBotResponse(); // Load bot response when widget initializes
+    _loadBotResponse();
+    _loadUserInput(); // Load user input when widget initializes
   }
 
   Future<void> _loadBotResponse() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _botResponse = prefs.getString('botResponse') ?? ''; // Load bot response from shared preferences
+      _botResponse = prefs.getString('botResponse') ?? '';
+      _botTitle = prefs.getString('botTitle') ?? '';
     });
   }
 
-  Future<void> _saveBotResponse(String response) async {
+  Future<void> _saveBotResponse(String title, String response) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('botResponse', response); // Save bot response to shared preferences
+    await prefs.setString('botTitle', title);
+    await prefs.setString('botResponse', response);
+  }
+
+  Future<void> _loadUserInput() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userInput.text = prefs.getString('userInput') ?? ''; // Load user input from shared preferences
+    });
+  }
+
+  Future<void> _saveUserInput(String userInput) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userInput', userInput); // Save user input to shared preferences
   }
 
   Future<void> talkWithGemini() async {
@@ -44,9 +60,10 @@ class _ChatBotPageState extends State<ChatBotPage> {
 
     setState(() {
       _botResponse = response.text!;
+      _botTitle = _userInput.text.trim(); // Update bot title with user input
     });
 
-    await _saveBotResponse(_botResponse); // Save bot response when received
+    await _saveBotResponse(_botTitle, _botResponse);
   }
 
   String minuteString = DateTime.now().minute < 10
@@ -80,42 +97,42 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   elevation: 10,
                   margin: EdgeInsets.all(10),
                   child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
+                    padding: const EdgeInsets.all(8.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            _botTitle.toUpperCase(),
+                            style: GoogleFonts.montserrat(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: CustomTheme.airForceBlue,
                             ),
-                            Text(
-                              "${_userInput.text.trim()}".toUpperCase(),
-                              style: GoogleFonts.montserrat(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: CustomTheme.airForceBlue,
-                              ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} - ${DateTime.now().hour}:$minuteString",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: CustomTheme.lightGray,
                             ),
-                            SizedBox(height: 5),
-                            Text(
-                              "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} - ${DateTime.now().hour}:$minuteString",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: CustomTheme.lightGray,
-                              ),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            _botResponse,
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              color: CustomTheme.lightGray,
                             ),
-                            SizedBox(height: 20),
-                            Text(
-                              _botResponse,
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: CustomTheme.lightGray,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -126,12 +143,12 @@ class _ChatBotPageState extends State<ChatBotPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "FinSage AI",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  )
+                    "FinSage AI",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    )
                 ),
               ],
             ),
@@ -151,6 +168,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
                         child: TextFormField(
                           controller: _userInput,
                           style: TextStyle(color: Colors.white),
+                          onChanged: (value) {
+                            _saveUserInput(value); // Save user input on change
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Enter your message...',
@@ -169,7 +189,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   ),
                 ),
               ),
-
             ),
             SizedBox(
               height: 10,
@@ -180,8 +199,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 Text(
                   "Powered by Gemini Pro",
                   style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold
                   ),
                 )
               ],
