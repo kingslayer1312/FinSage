@@ -79,43 +79,44 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   color: CustomTheme.maastrichtBlue,
                   elevation: 10,
                   margin: EdgeInsets.all(10),
-                  child: Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${_userInput.text.trim()}".toUpperCase(),
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomTheme.airForceBlue,
-                                ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "${_userInput.text.trim()}".toUpperCase(),
+                              style: GoogleFonts.montserrat(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: CustomTheme.airForceBlue,
                               ),
-                              SizedBox(height: 5),
-                              Text(
-                                "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} - ${DateTime.now().hour}:$minuteString",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: CustomTheme.lightGray,
-                                ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} - ${DateTime.now().hour}:$minuteString",
+                              style: GoogleFonts.montserrat(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: CustomTheme.lightGray,
                               ),
-                              SizedBox(height: 20),
-                              Text(
-                                _botResponse,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  color: CustomTheme.lightGray,
-                                ),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              _botResponse,
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                color: CustomTheme.lightGray,
                               ),
-                            ],
-                          ),
-                        )
-                    ),
-                  )
+                            ),
+                          ],
+                        ),
+                      )
+                  ),
                 ),
               ),
             SizedBox(
