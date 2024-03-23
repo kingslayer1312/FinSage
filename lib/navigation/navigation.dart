@@ -1,6 +1,6 @@
 import 'package:finsage/presentation/home_page.dart';
 import 'package:finsage/presentation/investments_page.dart';
-import 'package:finsage/presentation/recommendations_page.dart';
+import 'package:finsage/presentation/chatbot_page.dart';
 import 'package:finsage/presentation/watchlist_page.dart';
 import 'package:finsage/theme/custom_theme.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _NavigationState extends State<Navigation> {
         HomePage(),
         InvestmentsPage(),
         WatchlistPage(),
-        RecommendationsPage()
+        ChatBotPage()
       ][currentPageIndex],
     );
   }

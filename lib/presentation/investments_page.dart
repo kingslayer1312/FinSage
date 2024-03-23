@@ -100,6 +100,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
             children: [
               TextField(
                 controller: _symbolController,
+                textCapitalization: TextCapitalization.characters,
                 decoration: InputDecoration(labelText: 'Stock Symbol'),
               ),
               TextField(
@@ -162,6 +163,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
         padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
               Text(
@@ -187,7 +189,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                         investment['symbol'] ?? '',
                         style: GoogleFonts.poppins(fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: CustomTheme.emeraldGreen),
+                            color: CustomTheme.gold),
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

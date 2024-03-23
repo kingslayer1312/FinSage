@@ -45,3 +45,4 @@ app.*.map.json
 /lib/api/firebase_api.dart
 /lib/api/stock_api.dart
 /android/app/google-services.json
+/lib/api/gemini_api.dart
