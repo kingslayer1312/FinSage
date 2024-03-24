@@ -1,6 +1,5 @@
 import 'package:finsage/presentation/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,10 +34,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: CustomTheme.lightGray,
+        backgroundColor: CustomTheme.richBlack,
         appBar: AppBar(
           scrolledUnderElevation: 0.0,
-          backgroundColor: CustomTheme.lightGray,
+          backgroundColor: CustomTheme.richBlack,
           elevation: 0,
           systemOverlayStyle:
               const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
@@ -60,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     "FinSage",
                     style: GoogleFonts.montserrat(
                         fontSize: 48,
-                        color: Colors.black,
+                        color: CustomTheme.neutralWhite,
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
@@ -69,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     "Predict | Invest | Save",
                     style: GoogleFonts.montserrat(
-                        fontSize: 20, color: Colors.black),
+                        fontSize: 20, color: Colors.white70),
                   ),
                   SizedBox(
                     height: 30,
@@ -79,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.poppins(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        color: Colors.white),
                   ),
                   SizedBox(
                     height: 20,
@@ -88,18 +87,24 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: CustomTheme.maastrichtBlue,
                           border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
+                            cursorColor: Colors.white70,
+                            style: TextStyle(color: Colors.white),
                             controller: _emailController,
                             decoration: InputDecoration(
-                                icon: Icon(Icons.email),
+                                icon: Icon(Icons.email, color: CustomTheme.emeraldGreen,),
                                 border: InputBorder.none,
-                                hintText: "Email"),
+                                hintText: "Email",
+                                hintStyle: TextStyle(
+                                  color: CustomTheme.neutralWhite
+                                )
+                            ),
                           ),
                         )),
                   ),
@@ -108,19 +113,24 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: CustomTheme.maastrichtBlue,
                           border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
+                            cursorColor: Colors.white70,
+                            style: TextStyle(color: Colors.white),
                             controller: _passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              icon: Icon(Icons.password),
+                              icon: Icon(Icons.password,  color: CustomTheme.emeraldGreen,),
                               border: InputBorder.none,
                               hintText: "Password",
+                                hintStyle: TextStyle(
+                                    color: CustomTheme.neutralWhite
+                                )
                             ),
                           ),
                         )),
@@ -153,7 +163,13 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Not a member yet?"),
+                  Text(
+                    "Not a member yet?",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: CustomTheme.moonstone
+                    ),
+                  ),
                   TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -162,7 +178,11 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child: Text(
-                        "Create an account now!"
+                        "Click here to create an account now!",
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: CustomTheme.emeraldGreen
+                        ),
                       )
                   )
                 ]),

@@ -197,10 +197,10 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
         child: Icon(Icons.add),
       ),
       extendBodyBehindAppBar: true,
-      backgroundColor: CustomTheme.lightGray,
+      backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: CustomTheme.richBlack,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark),
@@ -215,110 +215,120 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
               Text(
                 'Investments'.toUpperCase(),
                 style: GoogleFonts.montserrat(
-                    fontSize: 32, fontWeight: FontWeight.w600),
+                    fontSize: 36,
+                    fontWeight: FontWeight.w600,
+                  color: CustomTheme.neutralWhite
+                ),
               ),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: _investments.length,
                 itemBuilder: (context, index) {
                   final investment = _investments[index];
-                  return Container(
-                    //height: 300,
-                    margin: EdgeInsets.only(bottom: 10),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: CustomTheme.maastrichtBlue,
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        investment['symbol'] ?? '',
-                        style: GoogleFonts.montserrat(fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: CustomTheme.lightGray),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Quantity: ${investment['quantity'] ?? ''}',
-                            style: GoogleFonts.poppins(fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: getContentColor(investment)
-                            ),
+                  return Column(
+                    children: [
+                      Container(
+                        //height: 300,
+                        margin: EdgeInsets.only(bottom: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: CustomTheme.maastrichtBlue,
+                        ),
+                        child: ListTile(
+                          title: Text(
+                            investment['symbol'] ?? '',
+                            style: GoogleFonts.montserrat(fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: CustomTheme.lightGray),
                           ),
-                          Text(
-                            'Cost Per Unit: \$${investment['costPerUnit'] ??
-                                ''}',
-                            style: GoogleFonts.poppins(fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: getContentColor(investment)),
-                          ),
-                          Text(
-                            'Price: \$${investment['c'] ?? ''}',
-                            style: GoogleFonts.poppins(fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: getContentColor(investment)),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Divider(
-
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                children: [
-                                  Text(
-                                      "INVESTMENT",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                      color: getInvestmentColor(investment),
-                                    ),
-                                  ),
-                                  Text(
-                                      "\$${calculateTotalInvestment(investment).toString()}",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: getInvestmentColor(investment),
-                                    ),
-                                  )
-                                ],
+                              Text(
+                                'Quantity: ${investment['quantity'] ?? ''}',
+                                style: GoogleFonts.poppins(fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: getContentColor(investment)
+                                ),
                               ),
-                              Spacer(
+                              Text(
+                                'Cost Price: \$${investment['costPerUnit'] ??
+                                    ''}',
+                                style: GoogleFonts.poppins(fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: getContentColor(investment)),
+                              ),
+                              Text(
+                                'Current Price: \$${investment['c'] ?? ''}',
+                                style: GoogleFonts.poppins(fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: getContentColor(investment)),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(
+                                color: CustomTheme.moonstone,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                          "INVESTMENT",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: getInvestmentColor(investment),
+                                        ),
+                                      ),
+                                      Text(
+                                          "\$${calculateTotalInvestment(investment).toString()}",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: getInvestmentColor(investment),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Spacer(
 
-                              ),
-                              Column(
-                                children: [
-                                  Text(
-                                      "EVALUATION",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                      color: getInvestmentColor(investment),
-                                    ),
                                   ),
-                                  Text(
-                                      "\$${calculateTotalEvaluation(investment).toString()}",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: getInvestmentColor(investment),
-                                    ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                          "EVALUATION",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: getInvestmentColor(investment),
+                                        ),
+                                      ),
+                                      Text(
+                                          "\$${calculateTotalEvaluation(investment).toString()}",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: getInvestmentColor(investment),
+                                        ),
+                                      )
+                                    ],
                                   )
                                 ],
                               )
                             ],
-                          )
-                        ],
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 5,
+                      )
+                    ],
                   );
                 },
               ),

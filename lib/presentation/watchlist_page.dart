@@ -136,10 +136,10 @@ class _WatchlistPageState extends State<WatchlistPage> {
         child: Icon(Icons.add),
       ),
       extendBodyBehindAppBar: true,
-      backgroundColor: CustomTheme.lightGray,
+      backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: CustomTheme.richBlack,
         elevation: 0,
         systemOverlayStyle:
         const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
@@ -154,8 +154,9 @@ class _WatchlistPageState extends State<WatchlistPage> {
               Text(
                 'Watchlist'.toUpperCase(),
                 style: GoogleFonts.montserrat(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w600
+                    fontSize: 36,
+                    fontWeight: FontWeight.w600,
+                  color: CustomTheme.neutralWhite
                 ),
               ),
               ListView.builder(
@@ -163,68 +164,75 @@ class _WatchlistPageState extends State<WatchlistPage> {
                 itemCount: _watchlist.length,
                 itemBuilder: (context, index) {
                   final stock = _watchlist[index];
-                  return Dismissible(
-                    direction: DismissDirection.endToStart,
-                    key: Key(stock['stockName'].toString()), // Unique key for each item
-                    onDismissed: (direction) {
-                      setState(() {
-                        _watchlist.removeAt(index); // Remove the item from the list
-                        _saveWatchlist(); // Save the updated list
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Stock removed from watchlist'),
-                          duration: Duration(seconds: 2),
+                  return Column(
+                    children: [
+                      Dismissible(
+                        direction: DismissDirection.endToStart,
+                        key: Key(stock['stockName'].toString()), // Unique key for each item
+                        onDismissed: (direction) {
+                          setState(() {
+                            _watchlist.removeAt(index); // Remove the item from the list
+                            _saveWatchlist(); // Save the updated list
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Stock removed from watchlist'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        },
+                        background: ClipRRect(
+                          borderRadius: BorderRadius.circular(0),
+                          child: Container(
+                            height: 100,
+                            color: Colors.transparent,
+                            padding: EdgeInsets.only(right: 20), // Adjust the padding to control the width of the delete slider
+                            alignment: Alignment.centerRight,
+                            child: Icon(Icons.delete, color: Colors.white70),
+                          ),
+                          clipBehavior: Clip.hardEdge, // Ensure clipping is done correctly
                         ),
-                      );
-                    },
-                    background: ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
-                      child: Container(
-                        height: 100,
-                        color: Colors.transparent,
-                        padding: EdgeInsets.only(right: 20), // Adjust the padding to control the width of the delete slider
-                        alignment: Alignment.centerRight,
-                        child: Icon(Icons.delete, color: Colors.black),
-                      ),
-                      clipBehavior: Clip.hardEdge, // Ensure clipping is done correctly
-                    ),
-                    child: Container(
-                      height: 100,
-                      margin: EdgeInsets.only(bottom: 10),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: CustomTheme.maastrichtBlue,
-                      ),
-                      child: ListTile(
-                        title: Text(
-                            stock['stockName'] ?? '',
-                            style: GoogleFonts.montserrat(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: CustomTheme.lightGray
-                            )
-                        ),
-                        subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                '\$${stock['c'] ?? ''}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w400,
-                                    color: CustomTheme.lightSeaGreen
+                        child: Container(
+                          height: 100,
+                          margin: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: CustomTheme.maastrichtBlue,
+                          ),
+                          child: ListTile(
+                            title: Text(
+                                stock['stockName'] ?? '',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    color: CustomTheme.lightGray
                                 )
                             ),
-                            SizedBox(
-                              height: 10,
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    '\$${stock['c'] ?? ''}',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w400,
+                                        color: CustomTheme.lightSeaGreen
+                                    )
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                )
+                              ],
                             )
-                          ],
-                        )
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 5,
+                      )
+                    ],
                   );
                 },
               ),

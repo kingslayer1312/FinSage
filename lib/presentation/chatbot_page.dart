@@ -90,6 +90,19 @@ class _ChatBotPageState extends State<ChatBotPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 30),
+            if (_botResponse.isEmpty) // Display text only if there's no response
+              Expanded(
+                child: Center(
+                  child: Text(
+                    "Hi, how can I help you?",
+                    style: GoogleFonts.poppins(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: CustomTheme.neutralWhite,
+                    ),
+                  ),
+                ),
+              ),
             if (_botResponse.isNotEmpty) // Display card only if there's a response
               Expanded(
                 child: Card(
@@ -173,7 +186,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                         flex: 15,
                         child: TextFormField(
                           controller: _userInput,
-                          textCapitalization: TextCapitalization.characters,
+                          textCapitalization: TextCapitalization.sentences,
                           style: TextStyle(color: CustomTheme.neutralWhite, fontSize: 18),
                           onChanged: (value) {
                             _saveUserInput(value); // Save user input on change
@@ -190,7 +203,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Generating response...'),
-                              duration: Duration(seconds: 4),
+                              duration: Duration(seconds: 8),
                             ),
                           );
                           talkWithGemini();

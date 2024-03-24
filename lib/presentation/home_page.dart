@@ -170,10 +170,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: CustomTheme.lightGray,
+      backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: CustomTheme.richBlack,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarBrightness: Brightness.dark,
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
           backgroundColor: CustomTheme.moonstone,
           foregroundColor: CustomTheme.richBlack,
-          child: Icon(Icons.manage_accounts),
+          child: const Icon(Icons.manage_accounts),
           onPressed: () {
             showDialog(
               context: context,
@@ -273,6 +273,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.montserrat(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
+                  color: CustomTheme.neutralWhite
                 ),
               ),
               SizedBox(
@@ -283,6 +284,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.montserrat(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,
+                  color: Colors.white70
                 ),
               ),
               Divider(
@@ -316,7 +318,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         subtitle: Column(
                           children: [
-                            Divider(),
+                            Divider(
+                              color: CustomTheme.moonstone,
+                            ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Row(
@@ -414,10 +418,13 @@ class CompanyInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: CustomTheme.lightGray,
+        backgroundColor: CustomTheme.richBlack,
         appBar: AppBar(
           scrolledUnderElevation: 0.0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: CustomTheme.richBlack,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
           elevation: 0,
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark,
@@ -464,7 +471,8 @@ class CompanyInfoScreen extends StatelessWidget {
                       companyInfo,
                       style: GoogleFonts.poppins(
                         fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
+                        color: CustomTheme.neutralWhite
                       ),
                     ),
                   )
