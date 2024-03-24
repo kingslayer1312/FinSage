@@ -8,6 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/stock_api.dart';
 
+/*
+TODO:
+  1. on clicking a stock in the watchlist, a screen with more details appears
+  2. a graph showing future stock prediction (must)
+  3. other features are optional, implement based on time
+ */
+
 class WatchlistPage extends StatefulWidget {
   const WatchlistPage({Key? key});
 

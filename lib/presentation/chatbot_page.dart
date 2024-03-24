@@ -77,7 +77,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
       backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: CustomTheme.richBlack,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarBrightness: Brightness.dark,
