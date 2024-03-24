@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:finsage/theme/custom_theme.dart';
@@ -19,11 +22,30 @@ class _ChatBotPageState extends State<ChatBotPage> {
   String _botResponse = '';
   String _botTitle = '';
 
+  String _text = '';
+  int _currentIndex = 0;
+  final String _fullText = "Hi, how can I help you?";
+
   @override
   void initState() {
     super.initState();
     _loadBotResponse();
-    _loadUserInput(); // Load user input when widget initializes
+    _loadUserInput();
+    _startTyping();
+  }
+
+  void _startTyping() {
+    const duration = const Duration(milliseconds: 100);
+    Timer.periodic(duration, (Timer timer) {
+      setState(() {
+        if (_currentIndex < _fullText.length) {
+          _text = _fullText.substring(0, _currentIndex + 1);
+          _currentIndex++;
+        } else {
+          timer.cancel();
+        }
+      });
+    });
   }
 
   Future<void> _loadBotResponse() async {
@@ -94,7 +116,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "Hi, how can I help you?",
+                    _text,
                     style: GoogleFonts.poppins(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,

@@ -13,7 +13,7 @@ TODO:
   1. on clicking a stock in the watchlist, a screen with more details appears
   2. a graph showing future stock prediction (must)
   3. other features are optional, implement based on time
- */
+  */
 
 class WatchlistPage extends StatefulWidget {
   const WatchlistPage({Key? key});
@@ -47,7 +47,8 @@ class _WatchlistPageState extends State<WatchlistPage> {
   }
 
   void _addToWatchlist(String stockSymbol) async {
-    final String apiUrl = 'https://finnhub.io/api/v1/quote?symbol=${stockSymbol}&token=${apiKey}';
+    final String apiUrl =
+        'https://finnhub.io/api/v1/quote?symbol=${stockSymbol}&token=${apiKey}';
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
@@ -91,14 +92,11 @@ class _WatchlistPageState extends State<WatchlistPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: CustomTheme.lightGray,
-          title: Text(
-              'Add Stock Symbol',
+          title: Text('Add Stock Symbol',
               style: GoogleFonts.montserrat(
                   fontSize: 26,
                   fontWeight: FontWeight.w600,
-                  color: CustomTheme.richBlack
-              )
-          ),
+                  color: CustomTheme.richBlack)),
           content: TextField(
             controller: _searchController,
             textCapitalization: TextCapitalization.characters,
@@ -107,25 +105,28 @@ class _WatchlistPageState extends State<WatchlistPage> {
           actions: <Widget>[
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: CustomTheme.moonstone, // Custom button background color
+                backgroundColor:
+                    CustomTheme.moonstone, // Custom button background color
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel', style: TextStyle(color: Colors.black)), // Custom text color
+              child: Text('Cancel',
+                  style: TextStyle(color: Colors.black)), // Custom text color
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: CustomTheme.moonstone, // Custom button background color
+                backgroundColor:
+                    CustomTheme.moonstone, // Custom button background color
               ),
               onPressed: () {
                 String symbol = _searchController.text.toUpperCase();
                 _addToWatchlist(symbol);
                 Navigator.of(context).pop();
               },
-              child: Text('OK', style: TextStyle(color: Colors.black)), // Custom text color
+              child: Text('OK',
+                  style: TextStyle(color: Colors.black)), // Custom text color
             ),
-
           ],
         );
       },
@@ -146,27 +147,30 @@ class _WatchlistPageState extends State<WatchlistPage> {
       backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: CustomTheme.richBlack,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle:
-        const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
+            const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 1.2 * kToolbarHeight, 0, 0),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Watchlist'.toUpperCase(),
-                style: GoogleFonts.montserrat(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w600,
-                  color: CustomTheme.neutralWhite
-                ),
-              ),
-              ListView.builder(
+        padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Watchlist'.toUpperCase(),
+              style: GoogleFonts.montserrat(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w600,
+                  color: CustomTheme.neutralWhite),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Expanded(
+              // Wrap the ListView.builder with an Expanded widget
+              child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _watchlist.length,
                 itemBuilder: (context, index) {
@@ -175,10 +179,12 @@ class _WatchlistPageState extends State<WatchlistPage> {
                     children: [
                       Dismissible(
                         direction: DismissDirection.endToStart,
-                        key: Key(stock['stockName'].toString()), // Unique key for each item
+                        key: Key(stock['stockName']
+                            .toString()), // Unique key for each item
                         onDismissed: (direction) {
                           setState(() {
-                            _watchlist.removeAt(index); // Remove the item from the list
+                            _watchlist.removeAt(
+                                index); // Remove the item from the list
                             _saveWatchlist(); // Save the updated list
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -193,11 +199,14 @@ class _WatchlistPageState extends State<WatchlistPage> {
                           child: Container(
                             height: 100,
                             color: Colors.transparent,
-                            padding: EdgeInsets.only(right: 20), // Adjust the padding to control the width of the delete slider
+                            padding: EdgeInsets.only(
+                                right:
+                                    20), // Adjust the padding to control the width of the delete slider
                             alignment: Alignment.centerRight,
                             child: Icon(Icons.delete, color: Colors.white70),
                           ),
-                          clipBehavior: Clip.hardEdge, // Ensure clipping is done correctly
+                          clipBehavior: Clip
+                              .hardEdge, // Ensure clipping is done correctly
                         ),
                         child: Container(
                           height: 100,
@@ -208,32 +217,25 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             color: CustomTheme.maastrichtBlue,
                           ),
                           child: ListTile(
-                            title: Text(
-                                stock['stockName'] ?? '',
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                    color: CustomTheme.lightGray
-                                )
-                            ),
-                            subtitle: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    '\$${stock['c'] ?? ''}',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w400,
-                                        color: CustomTheme.lightSeaGreen
-                                    )
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ],
-                            )
-                          ),
+                              title: Text(stock['stockName'] ?? '',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                      color: CustomTheme.lightGray)),
+                              subtitle: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('\$${stock['c'] ?? ''}',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w400,
+                                          color: CustomTheme.lightSeaGreen)),
+                                  SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              )),
                         ),
                       ),
                       SizedBox(
@@ -243,8 +245,8 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

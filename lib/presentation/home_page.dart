@@ -173,125 +173,132 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: CustomTheme.richBlack,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        backgroundColor: CustomTheme.richBlack,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarBrightness: Brightness.dark,
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: CustomTheme.moonstone,
-          foregroundColor: CustomTheme.richBlack,
-          child: const Icon(Icons.manage_accounts),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  backgroundColor: CustomTheme.lightGray, // Custom background color
-                  title: Text(
-                      "Account Details",
-                      style: GoogleFonts.montserrat(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600,
-                          color: CustomTheme.richBlack
-                      )
-                  ), // Custom text color
-                  content: Expanded(
+        backgroundColor: CustomTheme.moonstone,
+        foregroundColor: CustomTheme.richBlack,
+        child: const Icon(Icons.manage_accounts),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: CustomTheme.lightGray,
+                title: Text(
+                  "Account Details",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    color: CustomTheme.richBlack,
+                  ),
+                ),
+                content: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 100),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                            "Email: " + user!.email.toString(),
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.richBlack
-                            ) // Custom text color
+                          "Email: " + user!.email.toString(),
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: CustomTheme.richBlack,
+                          ),
                         ),
                         Text(
-                            "Monthly Income: \$" + userData?.entries.elementAt(0).value ?? "",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.richBlack
-                            ) // Custom text color
+                          "Monthly Income: \$" +
+                              (userData?.entries.elementAt(0).value ?? ""),
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: CustomTheme.richBlack,
+                          ),
                         ),
                         Text(
-                            "Monthly Investment Fund: \$" + userData?.entries.elementAt(1).value ?? "",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: CustomTheme.richBlack
-                            ) // Custom text color
+                          "Monthly Investment Fund: \$" +
+                              (userData?.entries.elementAt(1).value ?? ""),
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: CustomTheme.richBlack,
+                          ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                            "Powered by Finnhub and Gemini Pro",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: CustomTheme.richBlack
-                            ) // Custom text color
+                          "Powered by Finnhub and Gemini Pro",
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: CustomTheme.richBlack,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  actions: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CustomTheme.moonstone, // Custom button background color
-                      ),
-                      onPressed: () {
-                        FirebaseAuth.instance.signOut();
-                        Navigator.pop(context);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginPage())
-                        );
-                      },
-                      child: Text("Sign Out", style: TextStyle(color: Colors.black)), // Custom text color
+                ),
+                actions: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: CustomTheme.moonstone,
                     ),
-                  ],
-                );
-              },
-            );
-          }
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    },
+                    child: Text(
+                      "Sign Out",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Text(
-                'Good ${greeting()}'.toUpperCase(),
-                style: GoogleFonts.montserrat(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: CustomTheme.neutralWhite
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Good ${greeting()}'.toUpperCase(),
+              style: GoogleFonts.montserrat(
+                fontSize: 32,
+                fontWeight: FontWeight.w600,
+                color: CustomTheme.neutralWhite,
               ),
-              SizedBox(
-                height: 20,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "STOCK RECOMMENDATIONS",
+              style: GoogleFonts.montserrat(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: Colors.white70,
               ),
-              Text(
-                "STOCK RECOMMENDATIONS",
-                style: GoogleFonts.montserrat(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white70
-                ),
-              ),
-              Divider(
-                thickness: 2,
-              ),
-              ListView.builder(
-                dragStartBehavior: DragStartBehavior.start,
+            ),
+            Divider(
+              thickness: 2,
+            ),
+            Expanded( // Wrap the ListView.builder with an Expanded widget
+              child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _stocksData.length,
                 itemBuilder: (context, index) {
@@ -394,14 +401,14 @@ class _HomePageState extends State<HomePage> {
                               ),
                             )
                           ],
-                        )
+                        ),
                       ),
                     ),
                   );
                 },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -421,7 +428,7 @@ class CompanyInfoScreen extends StatelessWidget {
         backgroundColor: CustomTheme.richBlack,
         appBar: AppBar(
           scrolledUnderElevation: 0.0,
-          backgroundColor: CustomTheme.richBlack,
+          backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(
             color: Colors.white,
           ),
