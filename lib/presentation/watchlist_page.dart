@@ -169,7 +169,6 @@ class _WatchlistPageState extends State<WatchlistPage> {
               height: 30,
             ),
             Expanded(
-              // Wrap the ListView.builder with an Expanded widget
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _watchlist.length,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -115,24 +114,28 @@ class _HomePageState extends State<HomePage> {
     final response = await http.get(Uri.parse(wikiApiUrl));
     if (response.statusCode == 200) {
       final Map<String, dynamic> data =
-          jsonDecode(response.body)['query']['pages'];
+      jsonDecode(response.body)['query']['pages'];
       final String pageTitle = data.keys.first;
       final String companyInfo = data[pageTitle]['extract'];
 
       // Limiting the content to 300 words of complete sentences
       final String truncatedInfo = _truncateCompanyInfo(companyInfo);
 
-      // Navigate to the CompanyInfoScreen
+      // Push the CompanyInfoScreen only for the selected symbol
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CompanyInfoScreen(companyInfo: truncatedInfo),
+          builder: (context) => CompanyInfoScreen(
+            companyInfo: truncatedInfo,
+            symbol: symbol,
+          ),
         ),
       );
     } else {
       print('Error fetching company information');
     }
   }
+
 
   String _truncateCompanyInfo(String info) {
     final List<String> sentences = info.split('. ');
@@ -307,103 +310,110 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       _showCompanyInfoPopup(stock['symbol']);
                     },
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: CustomTheme.maastrichtBlue,
-                      ),
-                      child: ListTile(
-                        title: Text(
-                          stock['symbol'] ?? '',
-                          style: GoogleFonts.poppins(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: CustomTheme.lightGray,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: CustomTheme.maastrichtBlue,
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              stock['symbol'] ?? '',
+                              style: GoogleFonts.poppins(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: CustomTheme.lightGray,
+                              ),
+                            ),
+                            subtitle: Column(
+                              children: [
+                                Divider(
+                                  color: CustomTheme.moonstone,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text(
+                                            'BUY',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400,
+                                              color: CustomTheme.emeraldGreen,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${stock['buy'] ?? 0}",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: CustomTheme.emeraldGreen,
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            'SELL',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400,
+                                              color: CustomTheme.crimsonRed,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${stock['sell'] ?? 0}",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: CustomTheme.crimsonRed,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            'HOLD',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400,
+                                              color: CustomTheme.gold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${stock['hold'] ?? 0}",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: CustomTheme.gold,
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                        subtitle: Column(
-                          children: [
-                            Divider(
-                              color: CustomTheme.moonstone,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        'BUY',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                          color: CustomTheme.emeraldGreen,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${stock['buy'] ?? 0}",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomTheme.emeraldGreen,
-                                        ),
-                                      ),
-
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        'SELL',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                          color: CustomTheme.crimsonRed,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${stock['sell'] ?? 0}",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomTheme.crimsonRed,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        'HOLD',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                          color: CustomTheme.gold,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${stock['hold'] ?? 0}",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomTheme.gold,
-                                        ),
-                                      ),
-
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                        SizedBox(
+                          height: 5,
+                        )
+                      ],
+                    )
                   );
                 },
               ),
@@ -417,76 +427,116 @@ class _HomePageState extends State<HomePage> {
 
 class CompanyInfoScreen extends StatelessWidget {
   final String companyInfo;
+  final String symbol; // Symbol of the company to fetch respective image
 
-  const CompanyInfoScreen({Key? key, required this.companyInfo})
+  const CompanyInfoScreen({Key? key, required this.companyInfo, required this.symbol})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: CustomTheme.richBlack,
-        appBar: AppBar(
-          scrolledUnderElevation: 0.0,
-          backgroundColor: Colors.transparent,
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-          elevation: 0,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarBrightness: Brightness.dark,
-          ),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        scrolledUnderElevation: 0.0,
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: Colors.white,
         ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 1.2 * kToolbarHeight, 10, 0),
-          child: SingleChildScrollView(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: CustomTheme.maastrichtBlue,
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Information".toUpperCase(),
-                          style: GoogleFonts.montserrat(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.info,
-                          size: 30,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                    child: Text(
-                      companyInfo,
-                      style: GoogleFonts.poppins(
-                        fontSize: 20,
+        elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 1.2 * kToolbarHeight, 10, 0),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomTheme.maastrichtBlue,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    Text(
+                      "information".toUpperCase(),
+                      style: GoogleFonts.montserrat(
+                        fontSize: 32,
                         fontWeight: FontWeight.w400,
-                        color: CustomTheme.neutralWhite
+                        color: Colors.white,
                       ),
                     ),
-                  )
-                ],
+                    Spacer(),
+                    Icon(
+                      Icons.info,
+                      size: 30,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Future Stock Price Prediction:",
+                style: GoogleFonts.montserrat(
+                  fontSize: 20,
+                  color: CustomTheme.moonstone,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal, // Set scroll direction to horizontal
+                      child: Row(
+                        children: [
+                          // Display Company Logo
+                          Image.asset(
+                            'assets/images/${symbol.toLowerCase()}.png', // Assuming the image name is same as symbol
+                            height: 500, // Adjust height as needed
+
+                          ),
+                          SizedBox(width: 20), // Add spacing between images if needed
+                          // Add more images or widgets horizontally if needed
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "About Company:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          color: CustomTheme.moonstone,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(
+                      companyInfo,
+                      style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: CustomTheme.neutralWhite
+                      ),
+                    ),
+                  ],
+                ),
               )
+            ],
           ),
-        )
+        ),
+      ),
     );
   }
 }

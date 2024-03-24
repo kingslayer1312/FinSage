@@ -207,20 +207,23 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Text(
-                'Investments'.toUpperCase(),
-                style: GoogleFonts.montserrat(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w600,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Investments'.toUpperCase(),
+              style: GoogleFonts.montserrat(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w600,
                   color: CustomTheme.neutralWhite
-                ),
               ),
-              ListView.builder(
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Expanded(
+              child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _investments.length,
                 itemBuilder: (context, index) {
@@ -279,7 +282,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                                   Column(
                                     children: [
                                       Text(
-                                          "INVESTMENT",
+                                        "INVESTMENT",
                                         style: GoogleFonts.poppins(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400,
@@ -287,7 +290,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                                         ),
                                       ),
                                       Text(
-                                          "\$${calculateTotalInvestment(investment).toString()}",
+                                        "\$${calculateTotalInvestment(investment).toStringAsFixed(2)}",
                                         style: GoogleFonts.poppins(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -302,7 +305,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                                   Column(
                                     children: [
                                       Text(
-                                          "EVALUATION",
+                                        "EVALUATION",
                                         style: GoogleFonts.poppins(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400,
@@ -310,7 +313,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                                         ),
                                       ),
                                       Text(
-                                          "\$${calculateTotalEvaluation(investment).toString()}",
+                                        "\$${calculateTotalEvaluation(investment).toStringAsFixed(2)}",
                                         style: GoogleFonts.poppins(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -332,8 +335,8 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                   );
                 },
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
