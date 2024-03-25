@@ -1,4 +1,4 @@
-## FinSage
+# **FinSage**
 
 FinSage is a mobile application built with Flutter that empowers users to track their stock investments, receive ML-powered stock predictions, and leverage a built-in chatbot to enhance their financial knowledge. 
 
@@ -23,8 +23,15 @@ FinSage is a mobile application built with Flutter that empowers users to track 
 
 * A fully configured Flutter development environment ([https://docs.flutter.dev/get-started/install](https://docs.flutter.dev/get-started/install))
 * A Firebase project with established authentication and database functionalities ([https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project](https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project))
-* Two API keys are required: Gemini Pro (https://ai.google.dev/?gad_source=1&gclid=EAIaIQobChMIg4qq-IePhQMVfRiDAx0XogyKEAAYASAAEgJZ_fD_BwE) and Finnhub (https://finnhub.io/register)
-* Create a folder named 'api' within the lib folder and add the following files:
+* Two API keys are required: [Gemini Pro](https://ai.google.dev/?gad_source=1&gclid=EAIaIQobChMIg4qq-IePhQMVfRiDAx0XogyKEAAYASAAEgJZ_fD_BwE) and [Finnhub](https://finnhub.io/register)
+
+**Setup Instructions:**
+
+1. Clone the repository.
+2. Install project dependencies using the following command: ```flutter pub get```
+3. Replace placeholder values within `firebase_options.dart` with the user's unique Firebase project credentials.
+4. Initiate the application: ```flutter run```
+5. Create a folder named 'api' within the lib folder and add the following files:
 
 **firebase_api.dart**
 ```dart
@@ -43,16 +50,3 @@ const GEMINI_API_KEY = '<YOUR_GEMINI_PRO_API_KEY>';
 ```dart
 const STOCK_API_KEY = '<YOUR_FINNHUB_API_KEY>';
 ```
-
-**Setup Instructions:**
-
-1. Clone the repository.
-2. Install project dependencies using the following command:
-  ```bash
-  flutter pub get
-  ```
-3. Replace placeholder values within `firebase_options.dart` with the user's unique Firebase project credentials.
-4. Initiate the application:
-  ```bash
-  flutter run
-  ```
