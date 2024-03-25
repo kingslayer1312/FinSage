@@ -23,8 +23,8 @@ FinSage is a mobile application built with Flutter that empowers users to track 
 
 * A fully configured Flutter development environment ([https://docs.flutter.dev/get-started/install](https://docs.flutter.dev/get-started/install))
 * A Firebase project with established authentication and database functionalities ([https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project](https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project))
-* Two API keys are required: Gemini Pro and Finnhub
-* Create a folder named 'api' within the lib folder and add three files:
+* Two API keys are required: Gemini Pro (https://ai.google.dev/?gad_source=1&gclid=EAIaIQobChMIg4qq-IePhQMVfRiDAx0XogyKEAAYASAAEgJZ_fD_BwE) and Finnhub (https://finnhub.io/register)
+* Create a folder named 'api' within the lib folder and add the following files:
 
 **firebase_api.dart**
 ```dart
