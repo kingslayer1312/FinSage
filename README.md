@@ -7,8 +7,8 @@ FinSage is a mobile application built with Flutter that empowers users to track 
 * **Portfolio Tracking:** The application facilitates the monitoring of investment performance with real-time data, providing users with a clear visualization of gains and losses against initial purchase prices.
 * **Watchlist Management:** Users can create a personalized watchlist to stay informed about market movements for stocks that interest them.
 * **AI-Driven Insights:** FinSage integrates with Gemini Pro, a cutting-edge large language model, to provide users with personalized financial analysis and recommendations for their investments. **Disclaimer:** Stock recommendations are provided for informational purposes only and should not be construed as financial advice.
-* **Predictive Analytics (Beta):** FinSage utilizes a Long Short-Term Memory (LSTM) model built with TensorFlow to offer future price predictions for a select group of stocks (currently limited to AMD, Amazon, and Alphabet Inc.). The model can be found at https://github.com/kingslayer1312/StockPrediction
-* **Secure User Authentication:** The application prioritizes the confidentiality and integrity of user financial data through robust Firebase authentication protocols.
+* **Predictive Analytics (Beta):** FinSage utilizes a Long Short-Term Memory (LSTM) model built with TensorFlow to offer future price predictions for a select group of stocks (currently limited to AMD, Amazon, and Alphabet Inc.).
+* **Secure User Authentication:** The application makes use of Firebase's tried-and-tested authentication services and Firestore database for storing user data securely.
 
 ### Technology Stack
 
