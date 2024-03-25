@@ -43,7 +43,7 @@ dependencies:
   http: ^1.2.1
   shared_preferences: ^2.2.2
   google_generative_ai: ^0.2.2
-  animated_text_kit: ^4.2.2
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -97,3 +97,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_launcher_icons:
+  android:
+    adaptive_icon_background: "#0D1317"
+    adaptive_icon_foreground: "/home/hrishi/Programming/Android/FinSage/assets/images/logo.png"
+
+  image_path: "/home/hrishi/Programming/Android/FinSage/assets/images/logo.png"
