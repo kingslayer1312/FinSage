@@ -43,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Navigation())
+        MaterialPageRoute(builder: (context) => const Navigation())
       );
     } else if (_passwordController.text.trim() != _confirmPasswordController.text.trim()) {
       _showPasswordMismatchAlert();
@@ -57,14 +57,14 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Passwords do not match'),
-          content: Text('Please make sure the passwords match.'),
+          title: const Text('Passwords do not match'),
+          content: const Text('Please make sure the passwords match.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -77,14 +77,14 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Passwords too short'),
-          content: Text('Please make sure the password is at least 8 characters long.'),
+          title: const Text('Passwords too short'),
+          content: const Text('Please make sure the password is at least 8 characters long.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -119,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: SingleChildScrollView(
               child: Center(
                 child: Column(children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Image.asset(
@@ -134,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         color: Colors.white,
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
@@ -142,7 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: GoogleFonts.montserrat(
                         fontSize: 20, color: Colors.white70),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -152,11 +152,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -164,12 +164,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
                             controller: _emailController,
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.white),
+                            decoration: const InputDecoration(
                                 icon: Icon(Icons.email, color: CustomTheme.emeraldGreen,),
                                 border: InputBorder.none,
                                 hintText: "Email",
@@ -180,9 +180,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         )),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -190,13 +190,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
                             controller: _passwordController,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               icon: Icon(Icons.password, color: CustomTheme.emeraldGreen,),
                               border: InputBorder.none,
                               hintText: "Password",
@@ -207,9 +207,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         )),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -217,13 +217,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
                             controller: _confirmPasswordController,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               icon: Icon(Icons.password_outlined, color: CustomTheme.emeraldGreen,),
                               border: InputBorder.none,
                               hintText: "Confirm Password",
@@ -234,11 +234,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 14,
                   ),
-                  Divider(),
-                  SizedBox(
+                  const Divider(),
+                  const SizedBox(
                     height: 14,
                   ),
                   Column(
@@ -253,7 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           color: CustomTheme.neutralWhite
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -266,11 +266,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 6,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                       decoration: BoxDecoration(
                         color: CustomTheme.maastrichtBlue,
@@ -278,15 +278,15 @@ class _SignUpPageState extends State<SignUpPage> {
                         borderRadius: BorderRadius.circular(0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                        padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                         child: DropdownButton<String>(
                           dropdownColor: CustomTheme.maastrichtBlue,
                           isExpanded: true,
                           value: _selectedProfession,
-                          icon: Icon(Icons.arrow_drop_down, color: CustomTheme.emeraldGreen,),
+                          icon: const Icon(Icons.arrow_drop_down, color: CustomTheme.emeraldGreen,),
                           iconSize: 24,
                           elevation: 16,
-                          style: TextStyle(color: Colors.black), // Set the text color here
+                          style: const TextStyle(color: Colors.black), // Set the text color here
                           underline: Container(
                             height: 0,
                             color: Colors.transparent,
@@ -319,7 +319,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -330,13 +330,13 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: CustomTheme.neutralWhite
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -344,12 +344,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
                             controller: _incomeController,
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.white),
+                            decoration: const InputDecoration(
                                 icon: Icon(Icons.monetization_on_outlined, color: CustomTheme.emeraldGreen,),
                                 border: InputBorder.none,
                             ),
@@ -360,7 +360,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -371,13 +371,13 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: CustomTheme.neutralWhite
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -385,24 +385,24 @@ class _SignUpPageState extends State<SignUpPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             controller: _monthlyInvestmentController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 icon: Icon(Icons.monetization_on_outlined, color: CustomTheme.emeraldGreen,),
                                 border: InputBorder.none,
                             ),
                           ),
                         )),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: CustomTheme.emeraldGreen,
                           foregroundColor: CustomTheme.richBlack,
-                          fixedSize: Size(220, 10)
+                          fixedSize: const Size(220, 10)
                       ),
                       onPressed: () {
                         signUp();
@@ -415,7 +415,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       )
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   )
                 ]),

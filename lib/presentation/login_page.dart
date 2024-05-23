@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
             child: SingleChildScrollView(
               child: Center(
                 child: Column(children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Image.asset(
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: CustomTheme.neutralWhite,
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.montserrat(
                         fontSize: 20, color: Colors.white70),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -80,11 +80,11 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -92,12 +92,12 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             controller: _emailController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 icon: Icon(Icons.email, color: CustomTheme.emeraldGreen,),
                                 border: InputBorder.none,
                                 hintText: "Email",
@@ -108,9 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         )),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                         decoration: BoxDecoration(
                           color: CustomTheme.maastrichtBlue,
@@ -118,13 +118,13 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 3, 14, 3),
+                          padding: const EdgeInsets.fromLTRB(16, 3, 14, 3),
                           child: TextField(
                             cursorColor: Colors.white70,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             controller: _passwordController,
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               icon: Icon(Icons.password,  color: CustomTheme.emeraldGreen,),
                               border: InputBorder.none,
                               hintText: "Password",
@@ -135,14 +135,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: CustomTheme.emeraldGreen,
                       foregroundColor: CustomTheme.richBlack,
-                      fixedSize: Size(150, 10)
+                      fixedSize: const Size(150, 10)
                     ),
                       onPressed: () {
                         signIn();
@@ -156,11 +156,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       )
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Divider(),
-                  SizedBox(
+                  const Divider(),
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => SignUpPage())
+                          MaterialPageRoute(builder: (context) => const SignUpPage())
                         );
                       },
                       child: Text(

@@ -16,14 +16,14 @@ TODO:
   */
 
 class WatchlistPage extends StatefulWidget {
-  const WatchlistPage({Key? key});
+  const WatchlistPage({super.key, Key? key});
 
   @override
   State<WatchlistPage> createState() => _WatchlistPageState();
 }
 
 class _WatchlistPageState extends State<WatchlistPage> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> _watchlist = [];
   late SharedPreferences _prefs;
   final String apiKey = STOCK_API_KEY;
@@ -48,7 +48,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
 
   void _addToWatchlist(String stockSymbol) async {
     final String apiUrl =
-        'https://finnhub.io/api/v1/quote?symbol=${stockSymbol}&token=${apiKey}';
+        'https://finnhub.io/api/v1/quote?symbol=$stockSymbol&token=$apiKey';
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
@@ -70,7 +70,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
 
   void _showSymbolNotFoundSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Stock symbol not found'),
         duration: Duration(seconds: 2),
       ),
@@ -79,7 +79,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
 
   void _showErrorSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Error occurred. Please try again later.'),
         duration: Duration(seconds: 2),
       ),
@@ -100,7 +100,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
           content: TextField(
             controller: _searchController,
             textCapitalization: TextCapitalization.characters,
-            decoration: InputDecoration(hintText: 'Enter stock symbol'),
+            decoration: const InputDecoration(hintText: 'Enter stock symbol'),
           ),
           actions: <Widget>[
             ElevatedButton(
@@ -111,7 +111,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel',
+              child: const Text('Cancel',
                   style: TextStyle(color: Colors.black)), // Custom text color
             ),
             ElevatedButton(
@@ -124,7 +124,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                 _addToWatchlist(symbol);
                 Navigator.of(context).pop();
               },
-              child: Text('OK',
+              child: const Text('OK',
                   style: TextStyle(color: Colors.black)), // Custom text color
             ),
           ],
@@ -141,7 +141,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
         foregroundColor: CustomTheme.richBlack,
         onPressed: _showAddStockDialog,
         tooltip: 'Add Stock',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: CustomTheme.richBlack,
@@ -157,7 +157,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Watchlist'.toUpperCase(),
               style: GoogleFonts.montserrat(
@@ -165,7 +165,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   fontWeight: FontWeight.w600,
                   color: CustomTheme.neutralWhite),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -187,7 +187,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             _saveWatchlist(); // Save the updated list
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text('Stock removed from watchlist'),
                               duration: Duration(seconds: 2),
                             ),
@@ -195,22 +195,22 @@ class _WatchlistPageState extends State<WatchlistPage> {
                         },
                         background: ClipRRect(
                           borderRadius: BorderRadius.circular(0),
+                          clipBehavior: Clip
+                              .hardEdge,
                           child: Container(
                             height: 100,
                             color: Colors.transparent,
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 right:
                                     20), // Adjust the padding to control the width of the delete slider
                             alignment: Alignment.centerRight,
-                            child: Icon(Icons.delete, color: Colors.white70),
-                          ),
-                          clipBehavior: Clip
-                              .hardEdge, // Ensure clipping is done correctly
+                            child: const Icon(Icons.delete, color: Colors.white70),
+                          ), // Ensure clipping is done correctly
                         ),
                         child: Container(
                           height: 100,
-                          margin: EdgeInsets.only(bottom: 10),
-                          padding: EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: CustomTheme.maastrichtBlue,
@@ -230,14 +230,14 @@ class _WatchlistPageState extends State<WatchlistPage> {
                                           fontSize: 22,
                                           fontWeight: FontWeight.w400,
                                           color: CustomTheme.lightSeaGreen)),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   )
                                 ],
                               )),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       )
                     ],

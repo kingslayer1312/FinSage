@@ -52,10 +52,10 @@ class _NavigationState extends State<Navigation> {
         ],
       ),
       body: <Widget>[
-        HomePage(),
-        InvestmentsPage(),
-        WatchlistPage(),
-        ChatBotPage()
+        const HomePage(),
+        const InvestmentsPage(),
+        const WatchlistPage(),
+        const ChatBotPage()
       ][currentPageIndex],
     );
   }

@@ -9,16 +9,16 @@ import '../api/stock_api.dart';
 import '../theme/custom_theme.dart';
 
 class InvestmentsPage extends StatefulWidget {
-  const InvestmentsPage({Key? key});
+  const InvestmentsPage({super.key, Key? key});
 
   @override
   State<InvestmentsPage> createState() => _InvestmentsPageState();
 }
 
 class _InvestmentsPageState extends State<InvestmentsPage> {
-  TextEditingController _symbolController = TextEditingController();
-  TextEditingController _quantityController = TextEditingController();
-  TextEditingController _costPerUnitController = TextEditingController();
+  final TextEditingController _symbolController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _costPerUnitController = TextEditingController();
 
   List<Map<String, dynamic>> _investments = [];
   late SharedPreferences _prefs;
@@ -79,7 +79,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
 
   void _addInvestment(String symbol, double quantity,
       double costPerUnit) async {
-    final String apiUrl = 'https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}';
+    final String apiUrl = 'https://finnhub.io/api/v1/quote?symbol=$symbol&token=$apiKey';
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
@@ -106,7 +106,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
 
   void _showSymbolNotFoundSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Stock symbol not found'),
         duration: Duration(seconds: 2),
       ),
@@ -115,7 +115,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
 
   void _showErrorSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Error occurred. Please try again later.'),
         duration: Duration(seconds: 2),
       ),
@@ -143,17 +143,17 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
               TextField(
                 controller: _symbolController,
                 textCapitalization: TextCapitalization.characters,
-                decoration: InputDecoration(labelText: 'Stock Symbol'),
+                decoration: const InputDecoration(labelText: 'Stock Symbol'),
               ),
               TextField(
                 controller: _quantityController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Quantity'),
+                decoration: const InputDecoration(labelText: 'Quantity'),
               ),
               TextField(
                 controller: _costPerUnitController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Cost Per Unit'),
+                decoration: const InputDecoration(labelText: 'Cost Per Unit'),
               ),
             ],
           ),
@@ -165,7 +165,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel', style: TextStyle(color: Colors.black)), // Custom text color
+              child: const Text('Cancel', style: TextStyle(color: Colors.black)), // Custom text color
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -178,7 +178,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                 _addInvestment(symbol, quantity, costPerUnit);
                 Navigator.of(context).pop();
               },
-              child: Text('OK', style: TextStyle(color: Colors.black)), // Custom text color
+              child: const Text('OK', style: TextStyle(color: Colors.black)), // Custom text color
             ),
           ],
         );
@@ -194,7 +194,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
         foregroundColor: CustomTheme.richBlack,
         onPressed: _showAddInvestmentDialog,
         tooltip: 'Add Investment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: CustomTheme.richBlack,
@@ -210,7 +210,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Investments'.toUpperCase(),
               style: GoogleFonts.montserrat(
@@ -219,7 +219,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                   color: CustomTheme.neutralWhite
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -232,8 +232,8 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                     children: [
                       Container(
                         //height: 300,
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: CustomTheme.maastrichtBlue,
@@ -268,13 +268,13 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                                     fontWeight: FontWeight.w400,
                                     color: getContentColor(investment)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Divider(
+                              const Divider(
                                 color: CustomTheme.moonstone,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Row(
@@ -299,7 +299,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                                       )
                                     ],
                                   ),
-                                  Spacer(
+                                  const Spacer(
 
                                   ),
                                   Column(
@@ -328,7 +328,7 @@ class _InvestmentsPageState extends State<InvestmentsPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       )
                     ],

@@ -10,14 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../api/gemini_api.dart';
 
 class ChatBotPage extends StatefulWidget {
-  const ChatBotPage({Key? key}) : super(key: key);
+  const ChatBotPage({super.key});
 
   @override
   State<ChatBotPage> createState() => _ChatBotPageState();
 }
 
 class _ChatBotPageState extends State<ChatBotPage> {
-  TextEditingController _userInput = TextEditingController();
+  final TextEditingController _userInput = TextEditingController();
   String _botResponse = '';
   String _botTitle = '';
 
@@ -34,7 +34,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
   }
 
   void _startTyping() {
-    const duration = const Duration(milliseconds: 100);
+    const duration = Duration(milliseconds: 100);
     Timer.periodic(duration, (Timer timer) {
       setState(() {
         if (_currentIndex < _fullText.length) {
@@ -74,9 +74,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
   }
 
   Future<void> talkWithGemini() async {
-    final _userMessage = _userInput.text.trim();
+    final userMessage = _userInput.text.trim();
     final model = GenerativeModel(model: 'gemini-pro', apiKey: GEMINI_API_KEY);
-    final content = Content.text(_userMessage);
+    final content = Content.text(userMessage);
     final response = await model.generateContent([content]);
 
     setState(() {
@@ -105,12 +105,12 @@ class _ChatBotPageState extends State<ChatBotPage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 1.2 * kToolbarHeight, 20, 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             if (_botResponse.isEmpty) // Display text only if there's no response
               Expanded(
                 child: Center(
@@ -130,14 +130,14 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   surfaceTintColor: CustomTheme.richBlack,
                   color: CustomTheme.maastrichtBlue,
                   elevation: 20,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -148,7 +148,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                               color: CustomTheme.neutralWhite,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
                             "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} - ${DateTime.now().hour}:$minuteString",
                             style: GoogleFonts.montserrat(
@@ -157,11 +157,11 @@ class _ChatBotPageState extends State<ChatBotPage> {
                               color: Colors.white70,
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Divider(
+                          const SizedBox(height: 10),
+                          const Divider(
                             color: Colors.white70,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             _botResponse,
                             style: GoogleFonts.poppins(
@@ -176,7 +176,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   ),
                 ),
               ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -193,14 +193,14 @@ class _ChatBotPageState extends State<ChatBotPage> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
+              padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
               child: Container(
                 decoration: BoxDecoration(
                   color: CustomTheme.maastrichtBlue,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Row(
                     children: [
                       Expanded(
@@ -208,11 +208,11 @@ class _ChatBotPageState extends State<ChatBotPage> {
                         child: TextFormField(
                           controller: _userInput,
                           textCapitalization: TextCapitalization.sentences,
-                          style: TextStyle(color: CustomTheme.neutralWhite, fontSize: 18),
+                          style: const TextStyle(color: CustomTheme.neutralWhite, fontSize: 18),
                           onChanged: (value) {
                             _saveUserInput(value); // Save user input on change
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Enter your message...',
                             hintStyle: TextStyle(color: Colors.white70),
@@ -222,7 +222,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                       IconButton(
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text('Generating response...'),
                               duration: Duration(seconds: 8),
                             ),
@@ -230,7 +230,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                           talkWithGemini();
                           FocusScope.of(context).unfocus();
                         },
-                        icon: Icon(Icons.send_sharp),
+                        icon: const Icon(Icons.send_sharp),
                         color: CustomTheme.moonstone,
                       )
                     ],
@@ -238,7 +238,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(

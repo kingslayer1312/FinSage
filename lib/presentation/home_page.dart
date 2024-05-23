@@ -12,14 +12,14 @@ import '../theme/custom_theme.dart';
 import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key, Key? key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> _stocksData = [];
+  final List<Map<String, dynamic>> _stocksData = [];
 
   @override
   void initState() {
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
 
   void _showErrorSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Error occurred. Please try again later.'),
         duration: Duration(seconds: 2),
       ),
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Email: " + user!.email.toString(),
+                          "Email: ${user!.email}",
                           style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                             color: CustomTheme.richBlack,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
@@ -258,10 +258,10 @@ class _HomePageState extends State<HomePage> {
                       Navigator.pop(context);
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "Sign Out",
                       style: TextStyle(color: Colors.black),
                     ),
@@ -277,7 +277,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Good ${greeting()}'.toUpperCase(),
               style: GoogleFonts.montserrat(
@@ -286,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                 color: CustomTheme.neutralWhite,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -297,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white70,
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 2,
             ),
             Expanded( // Wrap the ListView.builder with an Expanded widget
@@ -313,8 +313,8 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          padding: EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: CustomTheme.maastrichtBlue,
@@ -330,11 +330,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             subtitle: Column(
                               children: [
-                                Divider(
+                                const Divider(
                                   color: CustomTheme.moonstone,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -359,7 +359,7 @@ class _HomePageState extends State<HomePage> {
 
                                         ],
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       Column(
                                         children: [
                                           Text(
@@ -380,7 +380,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ],
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       Column(
                                         children: [
                                           Text(
@@ -409,7 +409,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         )
                       ],
@@ -429,8 +429,7 @@ class CompanyInfoScreen extends StatelessWidget {
   final String companyInfo;
   final String symbol; // Symbol of the company to fetch respective image
 
-  const CompanyInfoScreen({Key? key, required this.companyInfo, required this.symbol})
-      : super(key: key);
+  const CompanyInfoScreen({super.key, required this.companyInfo, required this.symbol});
 
   @override
   Widget build(BuildContext context) {
@@ -440,7 +439,7 @@ class CompanyInfoScreen extends StatelessWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         elevation: 0,
@@ -451,7 +450,7 @@ class CompanyInfoScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 1.2 * kToolbarHeight, 10, 0),
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -460,7 +459,7 @@ class CompanyInfoScreen extends StatelessWidget {
                   color: CustomTheme.maastrichtBlue,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   children: [
                     Text(
@@ -471,8 +470,8 @@ class CompanyInfoScreen extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    Spacer(),
-                    Icon(
+                    const Spacer(),
+                    const Icon(
                       Icons.info,
                       size: 30,
                       color: Colors.white,
@@ -480,7 +479,7 @@ class CompanyInfoScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -492,7 +491,7 @@ class CompanyInfoScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -506,12 +505,12 @@ class CompanyInfoScreen extends StatelessWidget {
                             height: 500, // Adjust height as needed
 
                           ),
-                          SizedBox(width: 20), // Add spacing between images if needed
+                          const SizedBox(width: 20), // Add spacing between images if needed
                           // Add more images or widgets horizontally if needed
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
